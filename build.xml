@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TestGoogleMapsAPI" default="createJar">
+	<property name="src.dir" value="./src"/>
+	<property name="bin.dir" value="./bin"/>
+	<property name="res.dir" value="./resources"/>
+	
+	<target name="compile">
+		<delete dir="${bin.dir}"/>
+		<mkdir dir="${bin.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false">
+			<classpath>
+				<pathelement path="${res.dir}/guava-18.0.jar"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="createJar" depends="compile">
+		<mkdir dir="${bin.dir}/jar"/>
+		<jar destfile="${bin.dir}/jar/${ant.project.name}.jar">
+			<fileset dir="${bin.dir}" excludes="jar"/>
+			<zipgroupfileset dir="${res.dir}" includes="guava-18.0.jar"/>
+			<manifest>
+				<attribute name="Main-Class" value="alexiuscrow.Main"/>
+			</manifest>
+		</jar>
+	</target>
+	
+</project>
